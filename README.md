@@ -1,1 +1,2 @@
 # Ejercicios-Parte3-FullstackOpen
+Este es un ejercicio basico de backend, donde se simula el backend para una aplicacion de agenda telefonica, se desplego en internet mediante Render y se puede visitar con el siguiente [enlace](https://ejercicios-parte3-fullstackopen.onrender.com/info) y si se quiere visitar la api es mediante este [enlace](https://ejercicios-parte3-fullstackopen.onrender.com/api/persons)
