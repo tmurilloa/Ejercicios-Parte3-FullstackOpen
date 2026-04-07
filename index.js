@@ -11,14 +11,14 @@ app.use(cors())
 
 
 
-morgan.token('body', (req, res) => {
+morgan.token('body', (req) => {
     return JSON.stringify(req.body)
 })
 
 app.use(morgan(':method :url :status :response-time ms :body'))
 
 
-/* Funciones GET */ 
+/* Funciones GET */
 app.get('/info', (request, response) => {
     const time = new Date()
     Person.countDocuments({})
@@ -33,12 +33,12 @@ app.get('/info', (request, response) => {
 app.get('/api/persons', (request, response) => {
     Person.find({}).then(result => {
         response.json(result)
-    }) 
+    })
 })
 
-app.get('/api/persons/:id', (request, response, next) =>{
+app.get('/api/persons/:id', (request, response, next) => {
     Person.findById(request.params.id)
-    .then(person =>{
+    .then(person => {
         if(person){
         response.json(person)
         }
@@ -50,26 +50,25 @@ app.get('/api/persons/:id', (request, response, next) =>{
 })
 
 /* Funciones DELETE */
-app.delete('/api/persons/:id', (request, response, next) =>{
+app.delete('/api/persons/:id', (request, response, next) => {
     Person.findByIdAndDelete(request.params.id)
-    .then(result =>{
+    .then(() => {
         response.status(204).end()
     })
     .catch(error => {next(error)})
 })
 
 /* Funciones POST*/
-const generateID = () => {
-    random_id = Math.trunc(Math.random()* 500)
-    console.log(random_id)
-    return random_id
-}
 
-app.post('/api/persons', (request, response, next)=>{
+app.post('/api/persons', (request, response, next) => {
     const body = request.body
-    
+
     if (!body.name || !body.number){
-        return response.status(400).json({error: 'name or number missing'})
+        return response.status(400).json(
+            {
+            error: 'name or number missing'
+        }
+    )
     }
 
     const person = new Person({
@@ -84,7 +83,7 @@ app.post('/api/persons', (request, response, next)=>{
     .catch(error => {next(error)})
 })
 
-/* Funciones PUT*/ 
+/* Funciones PUT*/
 app.put('/api/persons/:id', (request, response, next) => {
     Person.findByIdAndUpdate(request.params.id, request.body, { new: true, runValidators: true })
     .then(updatedPerson => {

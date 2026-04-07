@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 // No paso los argumentos necesarios
 if (process.argv.length < 3){
-    console.log('Tienes que pasar minimo la contrasena')   
+    console.log('Tienes que pasar minimo la contrasena')
     process.exit(1)
 }
 
@@ -16,7 +16,7 @@ mongoose.connect(url)
 const personSchema = new mongoose.Schema({
     name: String,
     number: String
-}) 
+})
 
 const Person = mongoose.model('Person', personSchema)
 
@@ -42,7 +42,7 @@ if (process.argv.length > 3){
         number
     })
 
-    person.save().then(result => {
+    person.save().then(() => {
         console.log(`Added ${name} number ${number} to phonebook`)
         mongoose.connection.close()
     })
